@@ -34,7 +34,7 @@ public class User
         this.userInfo = userInfo;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
