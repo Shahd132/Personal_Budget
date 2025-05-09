@@ -60,7 +60,7 @@ public class DashboardGUI extends JFrame {
         reminderBtn.addActionListener(e -> {
     dispose();
     RemainderAppGUI gui = new RemainderAppGUI(username);
-    gui.display(); // ✅ هذه السطر ضروري لعرض نافذة Reminders
+    gui.display(); 
 });
 
 
