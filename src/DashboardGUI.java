@@ -44,12 +44,12 @@ public class DashboardGUI extends JFrame {
         
         incomeBtn.addActionListener(e -> {
             dispose();
-            // new IncomeTrackerGUI(username);
+             new IncomeTrackingGUI(username);  
         });
 
         expenseBtn.addActionListener(e -> {
             dispose();
-            // new ExpenseTrackerGUI(username);
+               new ExpenseTrackingGUI(username);
         });
 
         budgetBtn.addActionListener(e -> {
