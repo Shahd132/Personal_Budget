@@ -42,7 +42,7 @@ public class DashboardGUI extends JFrame {
         mainpanel.add(logoutBtn);
 
         
-        incomeBtn.addActionListener(e -> {
+          incomeBtn.addActionListener(e -> {
             dispose();
              new IncomeTrackingGUI(username);  
         });
@@ -54,13 +54,15 @@ public class DashboardGUI extends JFrame {
 
         budgetBtn.addActionListener(e -> {
             dispose();
-            // new BudgetGUI(username);
+            new BudgetAppGUI(username);
         });
 
         reminderBtn.addActionListener(e -> {
-            dispose();
-            // new ReminderGUI(username);
-        });
+    dispose();
+    RemainderAppGUI gui = new RemainderAppGUI(username);
+    gui.display(); // ✅ هذه السطر ضروري لعرض نافذة Reminders
+});
+
 
         logoutBtn.addActionListener(e -> {
             dispose();
@@ -94,6 +96,8 @@ public class DashboardGUI extends JFrame {
         return button;
     }
 }
+
+
 
 
 
