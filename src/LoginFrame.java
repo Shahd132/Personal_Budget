@@ -1,6 +1,6 @@
 
 import javax.swing.*;
-
+import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -95,9 +95,25 @@ public class LoginFrame extends JFrame
         
             if (authManager.login(email, password)) 
             {
-                JOptionPane.showMessageDialog(this, "Login successful!");
-                dispose();
-                new DashboardGUI(email);
+               
+                
+                try(BufferedReader reader = new BufferedReader(new FileReader("users.txt"))) 
+                {
+                     String line;
+                     while ((line = reader.readLine()) != null) {
+                        String[] parts = line.split(",");
+                        if (parts.length == 3 && parts[1].equals(email) && parts[2].equals(password)) {
+                             JOptionPane.showMessageDialog(this, "Login successful!");
+                             dispose();
+                             new DashboardGUI(parts[0]);
+                             break;
+                        }   
+                     }
+                }
+                catch(IOException c)
+                {
+                    c.printStackTrace();
+                } 
             } 
             else 
             {
@@ -150,7 +166,6 @@ public class LoginFrame extends JFrame
     }
     
 }
-
 
 
 
