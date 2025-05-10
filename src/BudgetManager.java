@@ -3,7 +3,7 @@ import java.util.List;
 
 public class BudgetManager {
     private List<Budget> budgets;
-    private List<Expense1> expenses;
+    private List<Expense> expenses;
 
     public BudgetManager() {
         this.budgets = new ArrayList<>();
@@ -16,7 +16,7 @@ public class BudgetManager {
     }
 
     // إضافة مصروف جديد
-    public void addExpense(Expense1 expense) {
+    public void addExpense(Expense expense) {
         this.expenses.add(expense);
     }
 
@@ -46,8 +46,10 @@ public class BudgetManager {
     }
 
     // الحصول على كل المصروفات
-    public List<Expense1> getAllExpenses() {
+    public List<Expense> getAllExpenses() {
         return expenses;
     }
 }
 
+
+      
