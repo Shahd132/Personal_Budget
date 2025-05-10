@@ -96,7 +96,7 @@ public class BudgetAppGUI {
             String category = categoryField.getText();
             try {
                 double expense = Double.parseDouble(expenseAmountField.getText());
-                Expense1 exp = new Expense1(category, expense);
+                Expense exp = new Expense(category, expense);
                 manager.addExpense(exp);
                 displayArea.append("💰 Expense for " + category + " added: $" + expense + "\n");
             } catch (NumberFormatException ex) {
@@ -156,3 +156,4 @@ public class BudgetAppGUI {
         new BudgetAppGUI("UserName");
     }
 }
+
