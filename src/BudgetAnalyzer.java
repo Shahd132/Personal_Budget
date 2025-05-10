@@ -1,9 +1,9 @@
 import java.util.List;
 
 public class BudgetAnalyzer {
-    public static String analyzeSpending(Budget budget, List<Expense1> expenses) {
+    public static String analyzeSpending(Budget budget, List<Expense> expenses) {
         double totalSpent = 0;
-        for (Expense1 e : expenses) {
+        for (Expense e : expenses) {
             if (e.getCategory().equalsIgnoreCase(budget.getCategory())) {
                 totalSpent += e.getAmount();
             }
