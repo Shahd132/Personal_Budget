@@ -6,14 +6,15 @@ public class BudgetAppGUI {
     private JFrame frame;
     private JTextField categoryField, amountField, expenseAmountField;
     private JTextArea displayArea;
-    private String username; // Add username field
+    private String username; 
 
-    public BudgetAppGUI(String username) { // Modify constructor to accept username
-        this.username = username; // Assign the username to the class field
+    public BudgetAppGUI(String username) {
+        this.username = username; 
         manager = new BudgetManager();
-        frame = new JFrame("💰 Personal Budgeting App");
+        frame = new JFrame(" Personal Budgeting App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(700, 700);
+        frame.setSize(700, 700); 
+        frame.setLocationRelativeTo(null);  
         frame.setLayout(new BorderLayout());
         frame.getContentPane().setBackground(new Color(33, 33, 33));
 
@@ -36,19 +37,18 @@ public class BudgetAppGUI {
         displayArea.setFont(font);
         displayArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton addBudgetButton = createStyledButton("➕ Add Budget", font, new Dimension(130, 30));
-        JButton addExpenseButton = createStyledButton("💸 Add Expense", font, new Dimension(130, 30));
-        JButton analyzeButton = createStyledButton("📊 Analyze", font, new Dimension(200, 40));
+        JButton addBudgetButton = createStyledButton(" Add Budget", font, new Dimension(130, 30));
+        JButton addExpenseButton = createStyledButton("Add Expense", font, new Dimension(130, 30));
+        JButton analyzeButton = createStyledButton(" Analyze", font, new Dimension(200, 40));
 
-        // Create Back to Dashboard button
         JButton backButton = new JButton("Back to Dashboard");
-        backButton.setBackground(new Color(102, 0, 153));
-        backButton.setForeground(Color.WHITE);
+        backButton.setBackground(new Color(70, 130, 180));  
+        backButton.setForeground(Color.WHITE); 
         backButton.setFont(font);
         backButton.setPreferredSize(new Dimension(200, 40));
         backButton.addActionListener(e -> {
-            frame.dispose(); // Close the current BudgetApp window
-            new DashboardGUI(username); // Assuming you have a DashboardGUI class that accepts username
+            frame.dispose(); 
+            new DashboardGUI(username); 
         });
 
         JPanel mainPanel = new JPanel();
@@ -63,14 +63,13 @@ public class BudgetAppGUI {
         mainPanel.add(createLabeledInputRow("Expense Amount:", expenseAmountField, addExpenseButton, labelFont, font));
         mainPanel.add(Box.createVerticalStrut(10));
 
-        JPanel analyzePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        analyzePanel.setBackground(new Color(33, 33, 33));
-        analyzePanel.add(analyzeButton);
-        mainPanel.add(Box.createVerticalStrut(10));
-        mainPanel.add(analyzePanel);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+        buttonPanel.setBackground(new Color(33, 33, 33));
+        buttonPanel.add(analyzeButton);
+        buttonPanel.add(backButton);  
 
-        mainPanel.add(Box.createVerticalStrut(10)); // Adding some space before back button
-        mainPanel.add(backButton); // Add the back button to the panel
+        mainPanel.add(Box.createVerticalStrut(10));
+        mainPanel.add(buttonPanel);  
 
         JScrollPane scrollPane = new JScrollPane(displayArea);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -84,11 +83,11 @@ public class BudgetAppGUI {
                 double amount = Double.parseDouble(amountField.getText());
                 Budget budget = new Budget(category, amount);
                 manager.addBudget(budget);
-                displayArea.append("✅ Budget for " + category + " added: $" + amount + "\n");
+                displayArea.append("Budget for " + category + " added: $" + amount + "\n");
             } catch (NumberFormatException ex) {
-                displayArea.append("❌ Invalid budget amount.\n");
+                displayArea.append(" Invalid budget amount.\n");
             } catch (IllegalArgumentException ex) {
-                displayArea.append("❌ " + ex.getMessage() + "\n");
+                displayArea.append(" " + ex.getMessage() + "\n");
             }
         });
 
@@ -98,11 +97,11 @@ public class BudgetAppGUI {
                 double expense = Double.parseDouble(expenseAmountField.getText());
                 Expense exp = new Expense(category, expense);
                 manager.addExpense(exp);
-                displayArea.append("💰 Expense for " + category + " added: $" + expense + "\n");
+                displayArea.append(" Expense for " + category + " added: $" + expense + "\n");
             } catch (NumberFormatException ex) {
-                displayArea.append("❌ Invalid expense amount.\n");
+                displayArea.append("Invalid expense amount.\n");
             } catch (IllegalArgumentException ex) {
-                displayArea.append("❌ " + ex.getMessage() + "\n");
+                displayArea.append(  ex.getMessage() + "\n");
             }
         });
 
@@ -124,13 +123,13 @@ public class BudgetAppGUI {
 
     private JButton createStyledButton(String text, Font font, Dimension size) {
         JButton button = new JButton(text);
-        button.setBackground(new Color(102, 0, 153));
-        button.setForeground(Color.WHITE);
+        button.setBackground(new Color(70, 130, 180));  
+        button.setForeground(Color.WHITE);  
         button.setFocusPainted(false);
         button.setFont(font);
         button.setPreferredSize(size);
         button.setMargin(new Insets(4, 10, 4, 10));
-        button.setBorder(BorderFactory.createLineBorder(new Color(102, 0, 153), 1, true));
+        button.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1, true));  
         button.setContentAreaFilled(true);
         button.setOpaque(true);
         return button;
@@ -139,15 +138,36 @@ public class BudgetAppGUI {
     private JPanel createLabeledInputRow(String labelText, JTextField field, JButton button, Font labelFont, Font font) {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(33, 33, 33));
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbcLabel = new GridBagConstraints();
+        gbcLabel.gridx = 0;
+        gbcLabel.gridy = 0;
+        gbcLabel.insets = new Insets(0, 0, 10, 0);  
+        gbcLabel.anchor = GridBagConstraints.WEST;
 
         JLabel label = new JLabel(labelText);
         label.setFont(labelFont);
         label.setForeground(Color.WHITE);
 
-        panel.add(label);
-        panel.add(field);
-        if (button != null) panel.add(button);
+        GridBagConstraints gbcField = new GridBagConstraints();
+        gbcField.gridx = 0;
+        gbcField.gridy = 1;
+        gbcField.insets = new Insets(0, 0, 10, 0);  
+        gbcField.fill = GridBagConstraints.HORIZONTAL;
+
+        field.setPreferredSize(new Dimension(250, 30));
+
+        panel.add(label, gbcLabel);
+        panel.add(field, gbcField);
+
+        if (button != null) {
+            GridBagConstraints gbcButton = new GridBagConstraints();
+            gbcButton.gridx = 1;
+            gbcButton.gridy = 1;
+            gbcButton.insets = new Insets(0, 10, 0, 0);  
+            panel.add(button, gbcButton);
+        }
 
         return panel;
     }
@@ -156,4 +176,3 @@ public class BudgetAppGUI {
         new BudgetAppGUI("UserName");
     }
 }
-
