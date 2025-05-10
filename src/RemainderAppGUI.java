@@ -14,19 +14,17 @@ public class RemainderAppGUI {
 
     public RemainderAppGUI(String username) {
         this.username = username;
-        frame = new JFrame("Reminder App");
+        frame = new JFrame("Personal Budgeting App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 700);
+        frame.setLocationRelativeTo(null);  
         frame.setLayout(new BorderLayout());
-
         frame.getContentPane().setBackground(Color.DARK_GRAY);
 
-        // Input Panel for adding reminders
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(5, 2));
         inputPanel.setBackground(Color.DARK_GRAY);
 
-        // Labels and text fields
         JLabel titleLabel = new JLabel("Title:");
         titleLabel.setForeground(Color.WHITE);
         inputPanel.add(titleLabel);
@@ -51,9 +49,8 @@ public class RemainderAppGUI {
         categoryField = new JTextField();
         inputPanel.add(categoryField);
 
-        // Save button
         JButton saveButton = new JButton("Save Reminder");
-        saveButton.setBackground(new Color(128, 0, 128)); // Purple button color
+        saveButton.setBackground(new Color(70, 130, 180));
         saveButton.setForeground(Color.WHITE);
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -73,7 +70,6 @@ public class RemainderAppGUI {
         });
         inputPanel.add(saveButton);
 
-        // Table to display reminders
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Title");
         tableModel.addColumn("Date");
@@ -81,14 +77,18 @@ public class RemainderAppGUI {
         tableModel.addColumn("Category");
 
         remainderTable = new JTable(tableModel);
-        remainderTable.setBackground(new Color(245, 245, 245));
-        remainderTable.setSelectionBackground(new Color(173, 216, 230));
+        remainderTable.setBackground(new Color(230, 230, 230));
+        remainderTable.setForeground(Color.BLACK);
+        remainderTable.setSelectionBackground(new Color(100, 149, 237));
+        remainderTable.setGridColor(Color.LIGHT_GRAY);
+        remainderTable.getTableHeader().setBackground(new Color(211, 211, 211));
+        remainderTable.getTableHeader().setForeground(Color.BLACK);
+        remainderTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
 
         JScrollPane scrollPane = new JScrollPane(remainderTable);
 
-        // Delete button
         JButton deleteButton = new JButton("Delete Reminder");
-        deleteButton.setBackground(new Color(128, 0, 128)); // Purple button color
+        deleteButton.setBackground(new Color(70, 130, 180));
         deleteButton.setForeground(Color.WHITE);
         deleteButton.addActionListener(new ActionListener() {
             @Override
@@ -103,35 +103,30 @@ public class RemainderAppGUI {
             }
         });
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(deleteButton);
-
-        // Back button to go back to Dashboard
         JButton backButton = new JButton("Back to Dashboard");
-        backButton.setBackground(new Color(128, 0, 128)); // Purple button color
+        backButton.setBackground(new Color(70, 130, 180));
         backButton.setForeground(Color.WHITE);
-       backButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        frame.dispose();
-        new DashboardGUI(username);
-    }
-});
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new DashboardGUI(username);
+            }
+        });
 
-
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.DARK_GRAY);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(backButton);
 
-        // Add components to frame
         frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(scrollPane, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    // Refresh table with all reminders
     private void refreshTable() {
         ArrayList<Remainder> reminders = RemainderManager.getAllReminders();
         tableModel.setRowCount(0);
-
         for (Remainder remainder : reminders) {
             tableModel.addRow(new Object[] {
                 remainder.getTitle(),
@@ -156,3 +151,4 @@ public class RemainderAppGUI {
         });
     }
 }
+
